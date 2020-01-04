@@ -1,0 +1,8 @@
+node_modules/
+.eslintrc.json
+package.json
+package-lock.json
+webpack.config.js
+*.scss
+*.css
+readme.md

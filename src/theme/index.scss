@@ -1,0 +1,10 @@
+@import 'colors';
+@import 'fonts';
+
+body {
+    font: $primaryFont;
+    background-color: $secondaryColor;
+    h2 {
+        color: $primaryColor;
+    }
+}
