@@ -17,7 +17,8 @@ import {
     isUserLoggedIn,
 } from '../../auth/selectors';
 import { NavLink } from 'react-router-dom';
-import { ROUTE_LOGIN, ROUTE_PROTECTED } from '../../navigation/constants';
+import { ROUTE_LOGIN, ROUTE_PARKING_AREAS } from '../../navigation/constants';
+import { noop } from '../../common/propTypes';
 
 const RegisterScreen = ({ onRegister, errorMessage, message, isLoggedIn }) => {
     const classes = useStyles();
@@ -29,7 +30,7 @@ const RegisterScreen = ({ onRegister, errorMessage, message, isLoggedIn }) => {
             {isLoggedIn ? (
                 <Redirect
                     to={{
-                        pathname: ROUTE_PROTECTED,
+                        pathname: ROUTE_PARKING_AREAS,
                     }}
                 />
             ) : (
@@ -98,7 +99,7 @@ RegisterScreen.propTypes = {
 
 RegisterScreen.defaultProps = {
     // function to be called when user successfully submits login form
-    onRegister: () => {},
+    onRegister: noop,
     isLoggedIn: false,
 };
 

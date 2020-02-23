@@ -13,6 +13,7 @@ const initialState = {
 
     // auth user
     user: null,
+    userCreds: null,
 
     // registration state indicators
     registrationInProgess: false,
@@ -50,6 +51,7 @@ export default function(state = initialState, action) {
                 registrationInProgess: false,
                 registrationError: null,
                 registrationMessage: message,
+                userCreds: null,
                 userDetails,
             };
         }
@@ -61,6 +63,7 @@ export default function(state = initialState, action) {
                 isLoggedIn: true,
                 loginError: null,
                 loginMessage: message,
+                userCreds: null,
                 userDetails,
             };
         }
@@ -69,6 +72,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 registrationInProgess: false,
+                userCreds: null,
                 registrationError,
             };
         }
@@ -77,6 +81,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 loginInProgess: false,
+                userCreds: null,
                 loginError,
             };
         }

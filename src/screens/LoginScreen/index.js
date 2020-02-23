@@ -17,7 +17,11 @@ import {
     isUserLoggedIn,
 } from '../../auth/selectors';
 import { userLoginRequested } from '../../auth/actions';
-import { ROUTE_REGISTER, ROUTE_PROTECTED } from '../../navigation/constants';
+import {
+    ROUTE_REGISTER,
+    ROUTE_PARKING_AREAS,
+} from '../../navigation/constants';
+import { noop } from '../../common/propTypes';
 
 const LoginScreen = ({ onLogin, errorMessage, isLoggedIn, message }) => {
     const classes = useStyles();
@@ -29,7 +33,7 @@ const LoginScreen = ({ onLogin, errorMessage, isLoggedIn, message }) => {
             {isLoggedIn ? (
                 <Redirect
                     to={{
-                        pathname: ROUTE_PROTECTED,
+                        pathname: ROUTE_PARKING_AREAS,
                     }}
                 />
             ) : (
@@ -98,7 +102,7 @@ LoginScreen.propTypes = {
 
 LoginScreen.defaultProps = {
     // function to be called when user successfully submits login form
-    onLogin: () => {},
+    onLogin: noop,
     isLoggedIn: false,
 };
 

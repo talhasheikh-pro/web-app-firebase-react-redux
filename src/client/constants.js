@@ -9,3 +9,6 @@ export const RESERVATIONS_COLLECTION = 'Reservations';
 
 // collection to store all the slots available for parking within each parking_area
 export const SLOTS_COLLECTION = 'Slots';
+
+// collection to store all the users
+export const USERS_COLLECTION = 'Users';

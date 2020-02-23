@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { ROUTE_PROTECTED, ROUTE_LOGIN, ACTIVE_CLASS_NAME } from './constants';
+import {
+    ROUTE_PARKING_AREAS,
+    ROUTE_LOGIN,
+    ACTIVE_CLASS_NAME,
+} from './constants';
 import { isUserLoggedIn } from '../auth/selectors';
 
 export function AuthenicatedNavigation({ isUserLoggedIn }) {
@@ -11,9 +15,9 @@ export function AuthenicatedNavigation({ isUserLoggedIn }) {
                 <li>
                     <NavLink
                         activeClassName={ACTIVE_CLASS_NAME}
-                        to={ROUTE_PROTECTED}
+                        to={ROUTE_PARKING_AREAS}
                     >
-                        Protected Page
+                        Parking Areas
                     </NavLink>
                 </li>
                 <li>

@@ -17,6 +17,11 @@ export const getUserDetails = createSelector(
     (auth) => auth.userDetails,
 );
 
+export const getUserId = createSelector(
+    getUserDetails,
+    (userDetails) => userDetails.user.uid,
+);
+
 export const getLoginError = createSelector(
     getAuthState,
     (auth) => auth.loginError,

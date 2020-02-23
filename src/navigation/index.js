@@ -5,6 +5,8 @@ import {
     ROUTE_PROTECTED,
     ROUTE_LOGIN,
     ROUTE_REGISTER,
+    ROUTE_PARKING_AREAS,
+    ROUTE_PARKING_SLOTS,
 } from './constants';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
@@ -14,6 +16,8 @@ import AuthenicatedNavigation from './AuthenicatedNavigation';
 import ProtectedScreen from '../screens/ProtectedScreen/';
 import LoginScreen from '../screens/LoginScreen/';
 import RegisterScreen from '../screens/RegisterScreen/';
+import ParkingAreasScreen from '../screens/ParkingAreasScreen/';
+import SlotsScreen from '../screens/SlotsScreen/';
 
 export default function Navigation() {
     return (
@@ -31,6 +35,12 @@ export default function Navigation() {
                     </PublicRoute>
                     <ProtectedRoute path={ROUTE_PROTECTED}>
                         <ProtectedScreen />
+                    </ProtectedRoute>
+                    <ProtectedRoute path={ROUTE_PARKING_AREAS}>
+                        <ParkingAreasScreen />
+                    </ProtectedRoute>
+                    <ProtectedRoute path={ROUTE_PARKING_SLOTS}>
+                        <SlotsScreen />
                     </ProtectedRoute>
                 </Switch>
             </div>
