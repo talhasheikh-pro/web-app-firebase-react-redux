@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {
     ROUTE_PARKING_AREAS,
-    ROUTE_LOGIN,
+    ROUTE_FEEDBACK,
     ACTIVE_CLASS_NAME,
 } from './constants';
 import { isUserLoggedIn } from '../auth/selectors';
@@ -23,9 +23,9 @@ export function AuthenicatedNavigation({ isUserLoggedIn }) {
                 <li>
                     <NavLink
                         activeClassName={ACTIVE_CLASS_NAME}
-                        to={ROUTE_LOGIN}
+                        to={ROUTE_FEEDBACK}
                     >
-                        Public Page
+                        Feedback
                     </NavLink>
                 </li>
             </ul>

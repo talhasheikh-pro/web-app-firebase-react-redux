@@ -12,6 +12,7 @@ export const ROUTE_LOGIN = '/login';
 export const ROUTE_REGISTER = '/register';
 export const ROUTE_PARKING_AREAS = '/parking';
 export const ROUTE_PARKING_SLOTS = '/:parking_id/slots';
+export const ROUTE_FEEDBACK = '/feedback';
 
 // create challenge form route
 export const ROUTE_NOT_FOUND = '/not-found';

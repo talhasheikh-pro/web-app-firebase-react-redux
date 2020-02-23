@@ -9,6 +9,7 @@ import {
     SLOTS_COLLECTION,
     RESERVATIONS_COLLECTION,
     USERS_COLLECTION,
+    FEEDBACK_COLLECTION,
 } from '../client/constants';
 
 /**
@@ -113,6 +114,23 @@ export async function addReservation(
         end_time: endDateTime,
         is_cancel: false,
         slot_id: slotRef,
+        user_id: userRef,
+    });
+}
+
+/**
+ * @usage - Adds feedback provided by user
+ *
+ * @param {string} feedback
+ * @param {string} userId
+ */
+export async function addFeedback(feedback, userId) {
+    const feedbackCollection = firestore.collection(FEEDBACK_COLLECTION);
+
+    const userRef = firestore.collection(USERS_COLLECTION).doc(userId);
+
+    return feedbackCollection.add({
+        message: feedback,
         user_id: userRef,
     });
 }
