@@ -44,14 +44,19 @@ function SlotsScreen({
         onCheckAvailibility(startDateTime, endDateTime);
     }, []);
 
+    const slotsToRender = parkingSlots.length ? parkingSlots : slots;
+
     const updateSelectedStatus = (id) => {
-        const updatedSlots = parkingSlots.map((slot) => {
+        let inSlots = [...slots];
+
+        const updatedSlots = inSlots.map((slot) => {
             if (slot.id == id) {
                 slot.selected = !slot.selected;
 
                 if (slot.selected) setSelectedId(id);
                 else setSelectedId(null);
             }
+
             return slot;
         });
 
@@ -96,7 +101,7 @@ function SlotsScreen({
 
             {message && <Alert severity="info">{message}</Alert>}
 
-            {parkingSlots.map((single) => {
+            {slotsToRender.map((single) => {
                 const { id, location, selected } = single;
                 const isReserved = reservedSlots.indexOf(id) > -1;
                 let bgColor = '#b6d4ff';

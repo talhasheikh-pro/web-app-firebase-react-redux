@@ -5,32 +5,11 @@ export function filterSlotsByEndDateTimeRange(
 ) {
     const filteredSlots = [];
     slots.forEach((slot) => {
-        console.log(slot.data());
         const { end_time, start_time } = slot.data();
         const startTimeTS = convertFromSecondsToDate(
             start_time.seconds,
         ).getTime();
         const endTimeTS = convertFromSecondsToDate(end_time.seconds).getTime();
-
-        console.log(
-            startTimeTS,
-            endTimeTS,
-            startDateTimestamp,
-            endDateTimestamp,
-        );
-
-        console.log(
-            'c-1',
-            startTimeTS < startDateTimestamp && startDateTimestamp < endTimeTS,
-        );
-        console.log(
-            'c-2',
-            startTimeTS < endDateTimestamp && endDateTimestamp < endTimeTS,
-        );
-        console.log(
-            'c-3',
-            startDateTimestamp < startTimeTS && startTimeTS < endDateTimestamp,
-        );
 
         // does time/date already has a reservation
         if (
@@ -43,7 +22,6 @@ export function filterSlotsByEndDateTimeRange(
         }
     });
 
-    console.log('filteredSlots', filteredSlots);
     return filteredSlots;
 }
 

@@ -26,7 +26,7 @@ const initialState = {
     slotReservationInProgress: false,
     reservedSlot: null,
 
-    error: null,
+    // error: null,
 };
 
 export default function(state = initialState, action) {
@@ -37,7 +37,7 @@ export default function(state = initialState, action) {
                 ...state,
                 slotsInProgess: true,
                 activeParkingAreaId: parkingAreaId,
-                error: null,
+                // error: null,
             };
         }
         case PARKING_SLOTS_SUCCEEDED: {
@@ -46,7 +46,7 @@ export default function(state = initialState, action) {
                 ...state,
                 slotsInProgess: false,
                 activeParkingSlots,
-                error: null,
+                // error: null,
             };
         }
         case PARKING_SLOTS_FAILED: {
@@ -62,7 +62,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 fetchReservedSlotsInProgress: true,
-                error: null,
+                // error: null,
                 startDateTime,
                 endDateTime,
             };
@@ -73,7 +73,7 @@ export default function(state = initialState, action) {
                 ...state,
                 reservedSlots,
                 fetchReservedSlotsInProgress: false,
-                error: null,
+                // error: null,
             };
         }
         case RESERVED_SLOTS_FAILED: {
@@ -89,7 +89,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 slotReservationInProgress: true,
-                error: null,
+                // error: null,
                 startDateTime,
                 endDateTime,
                 slotId,
@@ -101,7 +101,7 @@ export default function(state = initialState, action) {
                 ...state,
                 reservedSlot,
                 slotReservationInProgress: false,
-                error: null,
+                // error: null,
             };
         }
         case SLOT_RESERVATION_FAILED: {

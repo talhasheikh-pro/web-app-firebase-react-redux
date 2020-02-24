@@ -1,7 +1,6 @@
 /**
  * @usage - function(s) which interacts with the API, sending HTTP requests goes here
  */
-
 import { firebaseAuth, firestore } from '../client/firebase';
 import { EMAIL_VERIFICATION_REDIRECTION_URL } from '../auth/constants';
 import {
@@ -74,20 +73,25 @@ export async function fetchActiveParkingSlots(parkingId) {
  *
  * @param {array} slots - ids of slots
  */
-export async function fetchReservedSlots(slots, startDateTime) {
-    const slotsRef = await firestore.collection(SLOTS_COLLECTION);
-
-    const slotRefDocs = slots.map((slot) => {
-        return slotsRef.doc(slot);
-    });
-
-    return firestore
-        .collection(RESERVATIONS_COLLECTION)
-        .where('slot_id', 'in', slotRefDocs)
-        .where('start_time', '>=', new Date(startDateTime.setHours(0, 0, 0)))
-        .where('start_time', '<=', new Date(startDateTime.setHours(23, 59, 59)))
-        .where('is_cancel', '==', false)
-        .get();
+export async function fetchReservedSlots(startDateTime) {
+    try {
+        return firestore
+            .collection(RESERVATIONS_COLLECTION)
+            .where(
+                'start_time',
+                '>=',
+                new Date(startDateTime.setHours(0, 0, 0)),
+            )
+            .where(
+                'start_time',
+                '<=',
+                new Date(startDateTime.setHours(23, 59, 59)),
+            )
+            .where('is_cancel', '==', false)
+            .get();
+    } catch (e) {
+        return [];
+    }
 }
 
 /**

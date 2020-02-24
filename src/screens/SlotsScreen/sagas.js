@@ -20,16 +20,11 @@ import {
 import { parseClientError } from '../../api/utils';
 import {
     getActiveParkingAreaId,
-    getParkingSlots,
     getReservationStartDateTime,
     getReservationEndDateTime,
     getSlotId,
 } from './selectors';
-import {
-    transformSlots,
-    transformSlotsToIds,
-    transformSlotsToSlotIds,
-} from './transformers';
+import { transformSlots, transformSlotsToSlotIds } from './transformers';
 import { filterSlotsByEndDateTimeRange } from './utils';
 import { getUserId } from '../../auth/selectors';
 
@@ -51,14 +46,11 @@ function* getActiveParkingSlots() {
 
 function* getReservedSlots() {
     try {
-        const activeSlots = yield select(getParkingSlots);
         const startDateTime = yield select(getReservationStartDateTime);
         const endDateTime = yield select(getReservationEndDateTime);
-        const transformSlots = yield transformSlotsToIds(activeSlots);
 
         const reservedSlots = yield call(
             fetchReservedSlots,
-            transformSlots,
             new Date(startDateTime),
         );
         const filteredSlots = yield filterSlotsByEndDateTimeRange(
