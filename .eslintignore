@@ -6,3 +6,7 @@ webpack.config.js
 *.scss
 *.css
 readme.md
+functions/.eslintrc.json
+firebase.json
+functions/package-lock.json
+functions/package.json
