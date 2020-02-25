@@ -1,8 +1,3 @@
-/*
-
-'talhasheikh.pro@gmail.com', '123456'
-
-*/
 import { all, takeLatest, select, call, put } from 'redux-saga/effects';
 import { USER_RESGITRATION_REQUESTED, USER_LOGIN_REQUESTED } from './constants';
 import {

@@ -5,6 +5,7 @@ import {
     USER_LOGIN_REQUESTED,
     USER_LOGIN_SUCCEEDED,
     USER_LOGIN_FAILED,
+    UPDATE_USER_REQUESTED,
 } from './constants';
 
 const initialState = {
@@ -12,7 +13,9 @@ const initialState = {
     isLoggedIn: false,
 
     // auth user
-    user: null,
+    user: {
+        admin: null,
+    },
     userCreds: null,
 
     // registration state indicators
@@ -83,6 +86,13 @@ export default function(state = initialState, action) {
                 loginInProgess: false,
                 userCreds: null,
                 loginError,
+            };
+        }
+        case UPDATE_USER_REQUESTED: {
+            const { user } = action;
+            return {
+                ...state,
+                user,
             };
         }
         default:

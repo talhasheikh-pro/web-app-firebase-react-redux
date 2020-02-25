@@ -1,7 +1,7 @@
 /**
  * @usage - function(s) which interacts with the API, sending HTTP requests goes here
  */
-import { firebaseAuth, firestore } from '../client/firebase';
+import { firebaseAuth, firestore, firebaseFunctions } from '../client/firebase';
 import { EMAIL_VERIFICATION_REDIRECTION_URL } from '../auth/constants';
 import {
     PARKING_AREAS_COLLECTION,
@@ -137,4 +137,41 @@ export async function addFeedback(feedback, userId) {
         message: feedback,
         user_id: userRef,
     });
+}
+
+/**
+ * @usage - Fetches all feedbacks
+ */
+export async function getAllFeedbacks() {
+    const feedbackCollection = firestore.collection(FEEDBACK_COLLECTION);
+    return feedbackCollection.get();
+}
+
+/**
+ * @usage - Fetches all Reservations
+ */
+export async function getAllReservations() {
+    const reservationsCollection = firestore.collection(
+        RESERVATIONS_COLLECTION,
+    );
+    return reservationsCollection.get();
+}
+
+/**
+ * @usage - Fetches all Cancelled Reservations
+ */
+export async function getAllCancellation() {
+    const reservationsCollection = firestore.collection(
+        RESERVATIONS_COLLECTION,
+    );
+    return reservationsCollection.where('is_cancel', '==', true).get();
+}
+
+/**
+ * @usage - Fetches all Users
+ */
+export async function getAllUsers() {
+    let listUsers = firebaseFunctions.httpsCallable('listUsers');
+    let users = await listUsers();
+    return users.data;
 }

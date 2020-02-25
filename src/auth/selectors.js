@@ -41,3 +41,8 @@ export const getRegistrationMessage = createSelector(
     getAuthState,
     (auth) => auth.registrationMessage,
 );
+
+export const hasAdminRights = createSelector(
+    getAuthState,
+    (auth) => auth.user.admin,
+);

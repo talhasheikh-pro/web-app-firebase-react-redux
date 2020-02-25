@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/analytics';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/functions';
 
 // Firebase config elements
 const FIREBASE_PROJECT_ID = 'parkingapp-359f8';
@@ -27,4 +28,5 @@ firebase.initializeApp(firebaseConfig);
 
 export const firebaseAuth = firebase.auth();
 export const firestore = firebase.firestore();
+export const firebaseFunctions = firebase.functions();
 export default firebase;

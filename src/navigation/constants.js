@@ -10,9 +10,30 @@ export const ROUTE_PROTECTED = '/protected';
 // public route
 export const ROUTE_LOGIN = '/login';
 export const ROUTE_REGISTER = '/register';
+
+// User's protected routes
 export const ROUTE_PARKING_AREAS = '/parking';
 export const ROUTE_PARKING_SLOTS = '/:parking_id/slots';
 export const ROUTE_FEEDBACK = '/feedback';
+
+// Admin's protected routes
+export const ROUTE_ALL_RESERVATIONS = '/all-reservations';
+export const ROUTE_ALL_CANCELLATIONS = '/all-cancellations';
+export const ROUTE_ALL_USERS = '/all-users';
+export const ROUTE_ALL_FEEDBACKS = '/all-feedback';
+
+export const PROTECTED_USER_ROUTES = [
+    ROUTE_PARKING_AREAS,
+    ROUTE_PARKING_SLOTS,
+    ROUTE_FEEDBACK,
+];
+
+export const PROTECTED_ADMIN_ROUTES = [
+    ROUTE_ALL_RESERVATIONS,
+    ROUTE_ALL_CANCELLATIONS,
+    ROUTE_ALL_USERS,
+    ROUTE_ALL_FEEDBACKS,
+];
 
 // create challenge form route
 export const ROUTE_NOT_FOUND = '/not-found';

@@ -5,6 +5,7 @@ import {
     USER_LOGIN_REQUESTED,
     USER_LOGIN_SUCCEEDED,
     USER_LOGIN_FAILED,
+    UPDATE_USER_REQUESTED,
 } from './constants';
 
 export function userRegistrationRequested(userCreds) {
@@ -48,5 +49,12 @@ export function userLoginFailed(loginError) {
     return {
         type: USER_LOGIN_FAILED,
         loginError,
+    };
+}
+
+export function updateUserRequested(user) {
+    return {
+        type: UPDATE_USER_REQUESTED,
+        user,
     };
 }
