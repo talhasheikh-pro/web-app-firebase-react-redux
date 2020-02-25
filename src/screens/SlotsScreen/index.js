@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import 'date-fns';
 import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
@@ -15,20 +15,32 @@ import {
     reservedSlotsRequested,
     slotReservationRequested,
 } from './actions';
-import { getParkingSlots, getSlotsError, getReservedSlots } from './selectors';
+import {
+    getParkingSlots,
+    getSlotsError,
+    getReservedSlots,
+    isSlotReservationInProgress,
+    isSlotRevervationSuccess,
+    getReservedSlot,
+} from './selectors';
 import { connect } from 'react-redux';
 import { DateTimePicker } from '@material-ui/pickers';
+import ReactToPrint from 'react-to-print';
 
 function SlotsScreen({
     onLoad,
     slots,
     reservedSlots,
     onCheckAvailibility,
+    slotRevervationSuccess,
+    slotRevervationInProgress,
+    reservedSlot,
     onReservation,
     errorMessage,
 }) {
     const location = useLocation();
     const [selectedId, setSelectedId] = useState(null);
+    const [slotName, setSlotName] = useState('');
     const [message, setMessage] = useState(null);
     const [startDateTime, setStartDateTime] = useState(
         new Date().setHours(19, 30, 0),
@@ -37,6 +49,7 @@ function SlotsScreen({
         new Date().setHours(20, 30, 0),
     );
     const [parkingSlots, setParkingSlots] = useState(slots);
+    const receiptRef = useRef();
 
     // triggers when component in mounted
     useEffect(() => {
@@ -53,6 +66,7 @@ function SlotsScreen({
             if (slot.id == id) {
                 slot.selected = !slot.selected;
 
+                setSlotName(slot.location);
                 if (slot.selected) setSelectedId(id);
                 else setSelectedId(null);
             }
@@ -67,7 +81,10 @@ function SlotsScreen({
     return (
         <Fragment>
             <Typography>Select Slot for Reservation</Typography>
-            <Card style={styles.pickerContainer}>
+            <Card
+                disabled={slotRevervationInProgress}
+                style={styles.pickerContainer}
+            >
                 <CardContent>
                     <DateTimePicker
                         style={styles.pickers}
@@ -145,6 +162,7 @@ function SlotsScreen({
                         type="submit"
                         variant="contained"
                         color="primary"
+                        disabled={slotRevervationInProgress}
                         onClick={() => {
                             onReservation(
                                 startDateTime,
@@ -157,6 +175,36 @@ function SlotsScreen({
                     </Button>
                 ) : null}
             </div>
+            <div>
+                {!slotRevervationInProgress && slotRevervationSuccess ? (
+                    <div>
+                        <Alert severity="success">
+                            Slot Reserved Successfully
+                        </Alert>
+
+                        <div ref={receiptRef} style={styles.receiptRoot}>
+                            <Typography>
+                                Reservation Id: {reservedSlot}
+                            </Typography>
+                            <Typography>Location: {slotName}</Typography>
+                            <Typography>Start Time: {startDateTime}</Typography>
+                            <Typography>End Time: {endDateTime}</Typography>
+                        </div>
+                        <ReactToPrint
+                            trigger={() => (
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                >
+                                    Print this out!
+                                </Button>
+                            )}
+                            content={() => receiptRef.current}
+                        />
+                    </div>
+                ) : null}
+            </div>
         </Fragment>
     );
 }
@@ -166,14 +214,20 @@ SlotsScreen.propTypes = {
     onCheckAvailibility: PropTypes.func,
     onReservation: PropTypes.func,
     slots: PropTypes.array,
+    reservedSlot: PropTypes.string,
     reservedSlots: PropTypes.array,
     errorMessage: PropTypes.string,
+    slotRevervationSuccess: PropTypes.bool,
+    slotRevervationInProgress: PropTypes.bool,
 };
 
 SlotsScreen.defaultProps = {
     slots: [],
     reservedSlots: [],
     onLoad: noop,
+    reservedSlot: null,
+    slotRevervationSuccess: false,
+    slotRevervationInProgress: false,
     onCheckAvailibility: noop,
     onReservation: noop,
 };
@@ -183,6 +237,9 @@ const mapStateToProps = (state) => {
         slots: getParkingSlots(state),
         reservedSlots: getReservedSlots(state),
         errorMessage: getSlotsError(state),
+        slotRevervationInProgress: isSlotReservationInProgress(state),
+        slotRevervationSuccess: isSlotRevervationSuccess(state),
+        reservedSlot: getReservedSlot(state),
     };
 };
 

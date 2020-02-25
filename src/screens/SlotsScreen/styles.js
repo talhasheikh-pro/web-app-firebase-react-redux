@@ -12,6 +12,11 @@ const styles = {
     pickers: {
         marginLeft: 20,
     },
+    receiptRoot: {
+        padding: '30px',
+        border: '1px solid #ece',
+        margin: '20px',
+    },
 };
 
 export default styles;

@@ -36,3 +36,18 @@ export const getSlotId = createSelector(
     slotsScreenState,
     (state) => state.slotId,
 );
+
+export const getReservedSlot = createSelector(
+    slotsScreenState,
+    (state) => state.reservedSlot,
+);
+
+export const isSlotReservationInProgress = createSelector(
+    slotsScreenState,
+    (state) => state.slotReservationInProgress,
+);
+
+export const isSlotRevervationSuccess = createSelector(
+    slotsScreenState,
+    (state) => state.slotRevervationSuccess,
+);
