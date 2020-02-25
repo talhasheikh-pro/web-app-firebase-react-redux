@@ -13,8 +13,10 @@ import {
 } from './constants';
 import { hasAdminRights } from '../auth/selectors.js';
 import { isUserLoggedIn } from '../auth/selectors';
+import { userLogoutRequested } from '../auth/actions';
+import { noop } from '../common/propTypes';
 
-export function AuthenicatedNavigation({ isUserLoggedIn, isAdmin }) {
+export function AuthenicatedNavigation({ isUserLoggedIn, isAdmin, onLogout }) {
     return (
         <Fragment>
             {isUserLoggedIn && !isAdmin && (
@@ -74,6 +76,21 @@ export function AuthenicatedNavigation({ isUserLoggedIn, isAdmin }) {
                     </li>
                 </ul>
             )}
+
+            {isUserLoggedIn ? (
+                <ul>
+                    <li>
+                        <a
+                            onClick={(e) => {
+                                e.preventDefault();
+                                onLogout();
+                            }}
+                        >
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            ) : null}
         </Fragment>
     );
 }
@@ -83,11 +100,13 @@ AuthenicatedNavigation.propTypes = {
     isUserLoggedIn: PropTypes.bool,
     // indicates whether the current user is admin or not
     isAdmin: PropTypes.bool,
+    onLogout: PropTypes.func,
 };
 
 AuthenicatedNavigation.defaultProps = {
     isAdmin: false,
     isUserLoggedIn: false,
+    onLogout: noop,
 };
 
 const mapStateToProps = (state) => {
@@ -97,8 +116,15 @@ const mapStateToProps = (state) => {
     };
 };
 
-const ConnectedAuthenicatedNavigation = connect(mapStateToProps)(
-    AuthenicatedNavigation,
-);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogout: () => dispatch(userLogoutRequested()),
+    };
+};
+
+const ConnectedAuthenicatedNavigation = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(AuthenicatedNavigation);
 
 export default ConnectedAuthenicatedNavigation;

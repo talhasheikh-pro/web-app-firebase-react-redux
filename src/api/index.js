@@ -32,6 +32,13 @@ export async function loginUser({ email, password }) {
 }
 
 /**
+ * @usage Logs user out
+ */
+export async function logoutUser() {
+    return firebaseAuth.signOut();
+}
+
+/**
  * @usage User's email verification process via Firebase SDK
  */
 export async function sendEmailVerification() {
@@ -71,7 +78,7 @@ export async function fetchActiveParkingSlots(parkingId) {
 /**
  * @usage - Function to fetch all reserved parking slots for a specific parking area
  *
- * @param {array} slots - ids of slots
+ * @param {DateTime} startDateTime - ids of slots
  */
 export async function fetchReservedSlots(startDateTime) {
     try {

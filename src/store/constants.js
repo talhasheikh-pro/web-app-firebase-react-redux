@@ -1,1 +1,1 @@
-export const PERSIST_KEY = 'example_persist_key';
+export const PERSIST_KEY = 'parking_app_storage_key';
