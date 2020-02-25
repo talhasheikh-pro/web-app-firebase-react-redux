@@ -187,8 +187,12 @@ function SlotsScreen({
                                 Reservation Id: {reservedSlot}
                             </Typography>
                             <Typography>Location: {slotName}</Typography>
-                            <Typography>Start Time: {startDateTime}</Typography>
-                            <Typography>End Time: {endDateTime}</Typography>
+                            <Typography>
+                                Start Time: {startDateTime.toString()}
+                            </Typography>
+                            <Typography>
+                                End Time: {endDateTime.toString()}
+                            </Typography>
                         </div>
                         <ReactToPrint
                             trigger={() => (
