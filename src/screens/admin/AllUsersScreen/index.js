@@ -43,11 +43,6 @@ function AllUsersScreen({ data, onLoad }) {
                                 <TableCell>{email}</TableCell>
                             </TableRow>
                         ))}
-                    {!data.length && (
-                        <TableRow>
-                            <TableCell>No Data Found</TableCell>
-                        </TableRow>
-                    )}
                 </TableBody>
             </Table>
         </TableContainer>

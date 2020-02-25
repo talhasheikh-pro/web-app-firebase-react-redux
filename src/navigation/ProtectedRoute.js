@@ -41,7 +41,7 @@ function ProtectedRoute({
                 if (
                     isUserLoggedIn &&
                     isAdmin &&
-                    PROTECTED_ADMIN_ROUTES.indexOf(location.pathname) == -1
+                    PROTECTED_USER_ROUTES.indexOf(location.pathname) > -1
                 ) {
                     ROUTE_TO = PROTECTED_ADMIN_ROUTES[0];
                     doRender = false;
@@ -51,7 +51,7 @@ function ProtectedRoute({
                 if (
                     isUserLoggedIn &&
                     !isAdmin &&
-                    PROTECTED_USER_ROUTES.indexOf(location.pathname) == -1
+                    PROTECTED_ADMIN_ROUTES.indexOf(location.pathname) > -1
                 ) {
                     ROUTE_TO = PROTECTED_USER_ROUTES[0];
                     doRender = false;
