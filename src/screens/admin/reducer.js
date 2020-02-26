@@ -11,6 +11,9 @@ import {
     ALL_USERS_REQUESTED,
     ALL_USERS_SUCCEEDED,
     ALL_USERS_FAILED,
+    FEEDBACK_REPLY_REQUESTED,
+    FEEDBACK_REPLY_SUCCEEDED,
+    FEEDBACK_REPLY_FAILED,
 } from './constants';
 
 const initialState = {
@@ -23,6 +26,10 @@ const initialState = {
     reservationsDataFetchInProgress: false,
     usersDataFetchInProgress: false,
     error: null,
+
+    feedbackInProgess: false,
+    feedbackError: null,
+    reply: null,
 };
 
 export default function(state = initialState, action) {
@@ -121,6 +128,31 @@ export default function(state = initialState, action) {
                 ...state,
                 usersDataFetchInProgress: false,
                 error,
+            };
+        }
+        case FEEDBACK_REPLY_REQUESTED: {
+            const { replyToId, reply } = action;
+            return {
+                ...state,
+                replyToId,
+                reply,
+                feedbackInProgess: true,
+            };
+        }
+        case FEEDBACK_REPLY_SUCCEEDED: {
+            const { feedbackData } = action;
+            return {
+                ...state,
+                feedbackInProgess: false,
+                feedbackData,
+            };
+        }
+        case FEEDBACK_REPLY_FAILED: {
+            const { feedbackError } = action;
+            return {
+                ...state,
+                feedbackInProgess: false,
+                feedbackError,
             };
         }
         default:

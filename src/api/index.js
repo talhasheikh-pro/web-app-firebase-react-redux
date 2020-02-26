@@ -183,6 +183,24 @@ export async function addFeedback(feedback, userId) {
 }
 
 /**
+ * @usage - Adds reply to specific feedback
+ *
+ * @param {string} reply
+ * @param {string} feedbackId
+ */
+export async function addReplyToFeedback(reply, feedbackId) {
+    const feedbackRef = firestore
+        .collection(FEEDBACK_COLLECTION)
+        .doc(feedbackId);
+
+    feedbackRef.update({
+        reply: reply,
+    });
+
+    return getAllFeedbacks();
+}
+
+/**
  * @usage - Fetches all feedbacks
  */
 export async function getAllFeedbacks() {

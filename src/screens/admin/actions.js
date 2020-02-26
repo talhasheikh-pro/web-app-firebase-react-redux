@@ -11,6 +11,9 @@ import {
     ALL_USERS_REQUESTED,
     ALL_USERS_SUCCEEDED,
     ALL_USERS_FAILED,
+    FEEDBACK_REPLY_REQUESTED,
+    FEEDBACK_REPLY_SUCCEEDED,
+    FEEDBACK_REPLY_FAILED,
 } from './constants';
 
 export function allCancellationsRequested() {
@@ -90,5 +93,27 @@ export function allUsersFailed(error) {
     return {
         type: ALL_USERS_FAILED,
         error,
+    };
+}
+
+export function feedbackReplyRequested(replyToId, reply) {
+    return {
+        type: FEEDBACK_REPLY_REQUESTED,
+        replyToId,
+        reply,
+    };
+}
+
+export function feedbackReplySucceeded(feedbackData) {
+    return {
+        type: FEEDBACK_REPLY_SUCCEEDED,
+        feedbackData,
+    };
+}
+
+export function feedbackReplyFailed(feedbackError) {
+    return {
+        type: FEEDBACK_REPLY_FAILED,
+        feedbackError,
     };
 }

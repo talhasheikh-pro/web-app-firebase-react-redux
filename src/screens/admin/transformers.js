@@ -53,10 +53,11 @@ export function transformFeedback(feedback) {
     try {
         if (feedback) {
             feedback.forEach((doc) => {
-                const { user_id, message } = doc.data();
+                const { user_id, message, reply } = doc.data();
                 transformedFeedback.push({
                     id: doc.id,
                     user_id: user_id.id,
+                    reply,
                     message,
                 });
             });

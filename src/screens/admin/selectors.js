@@ -21,3 +21,18 @@ export const getUsersData = createSelector(
     adminScreensState,
     (state) => state.usersData,
 );
+
+export const getFeedbackInProgress = createSelector(
+    adminScreensState,
+    (state) => state.feedbackInProgess,
+);
+
+export const getReply = createSelector(
+    adminScreensState,
+    (state) => state.reply,
+);
+
+export const getReplyToId = createSelector(
+    adminScreensState,
+    (state) => state.replyToId,
+);

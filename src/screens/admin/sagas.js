@@ -1,15 +1,17 @@
-import { all, takeLatest, call, put } from 'redux-saga/effects';
+import { all, takeLatest, call, put, select } from 'redux-saga/effects';
 import {
     getAllFeedbacks,
     getAllReservations,
     getAllCancellation,
     getAllUsers,
+    addReplyToFeedback,
 } from '../../api/';
 import {
     ALL_CANCELLATIONS_REQUESTED,
     ALL_FEEDBACK_REQUESTED,
     ALL_RESERVATIONS_REQUESTED,
     ALL_USERS_REQUESTED,
+    FEEDBACK_REPLY_REQUESTED,
 } from './constants';
 import {
     allFeedbackSucceeded,
@@ -20,6 +22,8 @@ import {
     allCancellationsFailed,
     allUsersSucceeded,
     allUsersFailed,
+    feedbackReplySucceeded,
+    feedbackReplyFailed,
 } from './actions';
 import {
     transformReservations,
@@ -27,6 +31,7 @@ import {
     transformFeedback,
 } from './transformers';
 import { parseClientError } from '../../api/utils';
+import { getReply, getReplyToId } from './selectors';
 
 function* fetchAllFeedback() {
     try {
@@ -90,11 +95,33 @@ function* fetchAllUsers() {
     }
 }
 
+function* submitReplyToFeedback() {
+    try {
+        const replyMessage = yield select(getReply);
+        const replyToId = yield select(getReplyToId);
+        const allUpdatedFeedback = yield call(
+            addReplyToFeedback,
+            replyMessage,
+            replyToId,
+        );
+        const transformedFeedback = yield transformFeedback(allUpdatedFeedback);
+
+        if (transformedFeedback) {
+            yield put(feedbackReplySucceeded(transformedFeedback));
+        }
+    } catch (e) {
+        const error = parseClientError(e);
+        const message = error && error.message ? error.message : error;
+        yield put(feedbackReplyFailed(message));
+    }
+}
+
 export default function*() {
     yield all([
         yield takeLatest(ALL_CANCELLATIONS_REQUESTED, fetchAllCancellation),
         yield takeLatest(ALL_FEEDBACK_REQUESTED, fetchAllFeedback),
         yield takeLatest(ALL_RESERVATIONS_REQUESTED, fetchAllReservations),
         yield takeLatest(ALL_USERS_REQUESTED, fetchAllUsers),
+        yield takeLatest(FEEDBACK_REPLY_REQUESTED, submitReplyToFeedback),
     ]);
 }
