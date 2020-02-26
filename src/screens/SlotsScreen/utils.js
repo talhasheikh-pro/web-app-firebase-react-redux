@@ -25,6 +25,22 @@ export function filterSlotsByEndDateTimeRange(
     return filteredSlots;
 }
 
+export function filterActiveSlots(slots) {
+    const activeSlots = [];
+    slots.forEach((slot) => {
+        const { end_time } = slot.data();
+        const endTimeTS = convertFromSecondsToDate(end_time.seconds).getTime();
+        const currentTimeTS = new Date().getTime();
+
+        // does time/date already has a reservation
+        if (endTimeTS > currentTimeTS) {
+            activeSlots.push(slot);
+        }
+    });
+
+    return activeSlots;
+}
+
 /**
  * @usage - converts seconds to date
  *

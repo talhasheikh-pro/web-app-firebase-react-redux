@@ -48,7 +48,6 @@ function SlotsScreen({
     const [endDateTime, setEndDateTime] = useState(
         new Date().setHours(20, 30, 0),
     );
-    const [parkingSlots, setParkingSlots] = useState(slots);
     const receiptRef = useRef();
 
     // triggers when component in mounted
@@ -57,12 +56,8 @@ function SlotsScreen({
         onCheckAvailibility(startDateTime, endDateTime);
     }, []);
 
-    const slotsToRender = parkingSlots.length ? parkingSlots : slots;
-
     const updateSelectedStatus = (id) => {
-        let inSlots = [...slots];
-
-        const updatedSlots = inSlots.map((slot) => {
+        slots.forEach((slot) => {
             if (slot.id == id) {
                 slot.selected = !slot.selected;
 
@@ -70,12 +65,8 @@ function SlotsScreen({
                 if (slot.selected) setSelectedId(id);
                 else setSelectedId(null);
             }
-
-            return slot;
         });
-
         setMessage(null);
-        setParkingSlots(updatedSlots);
     };
 
     return (
@@ -118,40 +109,41 @@ function SlotsScreen({
 
             {message && <Alert severity="info">{message}</Alert>}
 
-            {slotsToRender.map((single) => {
-                const { id, location, selected } = single;
-                const isReserved = reservedSlots.indexOf(id) > -1;
-                let bgColor = '#b6d4ff';
-                if (isReserved) {
-                    bgColor = 'yellow';
-                } else if (selected) {
-                    bgColor = 'green';
-                }
+            {slots &&
+                slots.map((single) => {
+                    const { id, location, selected } = single;
+                    const isReserved = reservedSlots.indexOf(id) > -1;
+                    let bgColor = '#b6d4ff';
+                    if (isReserved) {
+                        bgColor = 'yellow';
+                    } else if (selected) {
+                        bgColor = 'green';
+                    }
 
-                return (
-                    <Card
-                        key={id}
-                        style={{ ...styles.root, backgroundColor: bgColor }}
-                    >
-                        <CardActionArea
-                            disabled={isReserved}
-                            onClick={() => {
-                                if (!selectedId || id == selectedId) {
-                                    updateSelectedStatus(id);
-                                } else {
-                                    setMessage(
-                                        'You can only select single parking spot',
-                                    );
-                                }
-                            }}
+                    return (
+                        <Card
+                            key={id}
+                            style={{ ...styles.root, backgroundColor: bgColor }}
                         >
-                            <CardContent>
-                                <h1>{location}</h1>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                );
-            })}
+                            <CardActionArea
+                                disabled={isReserved}
+                                onClick={() => {
+                                    if (!selectedId || id == selectedId) {
+                                        updateSelectedStatus(id);
+                                    } else {
+                                        setMessage(
+                                            'You can only select single parking spot',
+                                        );
+                                    }
+                                }}
+                            >
+                                <CardContent>
+                                    <h1>{location}</h1>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                    );
+                })}
             <div
                 style={{
                     marginTop: 40,
@@ -182,6 +174,7 @@ function SlotsScreen({
                             Slot Reserved Successfully
                         </Alert>
 
+                        {/* Booking/Reservation receipt */}
                         <div ref={receiptRef} style={styles.receiptRoot}>
                             <Typography>
                                 Reservation Id: {reservedSlot}
@@ -194,6 +187,8 @@ function SlotsScreen({
                                 End Time: {endDateTime.toString()}
                             </Typography>
                         </div>
+
+                        {/* `ReactToPrint` for printing receipt */}
                         <ReactToPrint
                             trigger={() => (
                                 <Button

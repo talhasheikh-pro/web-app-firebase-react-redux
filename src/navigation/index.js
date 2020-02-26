@@ -7,6 +7,7 @@ import {
     ROUTE_PARKING_AREAS,
     ROUTE_PARKING_SLOTS,
     ROUTE_FEEDBACK,
+    ROUTE_RESERVATIONS,
     ROUTE_ALL_CANCELLATIONS,
     ROUTE_ALL_FEEDBACKS,
     ROUTE_ALL_RESERVATIONS,
@@ -22,6 +23,7 @@ import RegisterScreen from '../screens/RegisterScreen/';
 import ParkingAreasScreen from '../screens/ParkingAreasScreen/';
 import SlotsScreen from '../screens/SlotsScreen/';
 import FeedbackScreen from '../screens/FeedbackScreen/';
+import CancellationScreen from '../screens/CancellationScreen';
 
 import AllCancellationsScreen from '../screens/admin/AllCancellationsScreen/';
 import AllFeedbackScreen from '../screens/admin/AllFeedbackScreen/';
@@ -62,6 +64,9 @@ export default function Navigation() {
                     </ProtectedRoute>
                     <ProtectedRoute path={ROUTE_PARKING_SLOTS}>
                         <SlotsScreen />
+                    </ProtectedRoute>
+                    <ProtectedRoute path={ROUTE_RESERVATIONS}>
+                        <CancellationScreen />
                     </ProtectedRoute>
                 </Switch>
             </div>

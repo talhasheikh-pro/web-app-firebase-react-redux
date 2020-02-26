@@ -43,19 +43,26 @@ function FeedbackScreen({ errorMessage, onSubmit, feedbackInProgess }) {
                             </Alert>
                         )}
 
-                        <textarea
-                            onChange={(e) => {
-                                setFeedback(e.target.value);
-                            }}
-                            style={styles.textarea}
-                            disabled={feedbackInProgess}
-                        ></textarea>
+                        {!feedbackInProgess ? (
+                            <textarea
+                                onChange={(e) => {
+                                    setFeedback(e.target.value);
+                                }}
+                                style={styles.textarea}
+                                disabled={feedbackInProgess}
+                            ></textarea>
+                        ) : (
+                            <Alert style={styles.alert} severity="info">
+                                Feedback In Progress
+                            </Alert>
+                        )}
 
                         <div>
                             <Button
                                 type="submit"
                                 variant="contained"
                                 color="primary"
+                                disabled={feedbackInProgess}
                             >
                                 Submit
                             </Button>

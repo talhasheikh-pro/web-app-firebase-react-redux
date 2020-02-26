@@ -4,6 +4,7 @@ import parkingAreasSaga from '../screens/ParkingAreasScreen/sagas';
 import slotsSaga from '../screens/SlotsScreen/sagas';
 import feedbackSaga from '../screens/FeedbackScreen/sagas';
 import adminSagas from '../screens/admin/sagas';
+import cancellationSaga from '../screens/CancellationScreen/sagas';
 
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
@@ -13,5 +14,6 @@ export default function* rootSaga() {
         call(slotsSaga),
         call(feedbackSaga),
         call(adminSagas),
+        call(cancellationSaga),
     ]);
 }

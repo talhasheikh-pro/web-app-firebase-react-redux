@@ -38,6 +38,7 @@ export default function(state = initialState, action) {
                 ...state,
                 slotsInProgess: true,
                 activeParkingAreaId: parkingAreaId,
+                activeParkingSlots: null,
                 error: null,
             };
         }

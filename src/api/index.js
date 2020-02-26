@@ -102,6 +102,25 @@ export async function fetchReservedSlots(startDateTime) {
 }
 
 /**
+ * @usage - Function to fetch all reserved parking slots for a specific parking area for a specific user
+ *
+ * @param {DateTime} startDateTime - day to fetch reservations for
+ * @param {string} userId
+ */
+export async function fetchReservedSlotsByUserId(startDateTime, userId) {
+    try {
+        const userRef = firestore.collection(USERS_COLLECTION).doc(userId);
+        return firestore
+            .collection(RESERVATIONS_COLLECTION)
+            .where('start_time', '>=', new Date(startDateTime))
+            .where('user_id', '==', userRef)
+            .get();
+    } catch (e) {
+        return [];
+    }
+}
+
+/**
  * @usage - Adds reservation for a parking spot
  *
  * @param {datetime} startDateTime
@@ -127,6 +146,23 @@ export async function addReservation(
         slot_id: slotRef,
         user_id: userRef,
     });
+}
+
+/**
+ * @usage - Cancels reservation by marking is_cancel to false
+ *
+ * @param {string} userId
+ * @param {string} reservationId
+ */
+export async function cancelReservation(userId, reservationId) {
+    const reservationRef = firestore
+        .collection(RESERVATIONS_COLLECTION)
+        .doc(reservationId);
+    await reservationRef.update({
+        is_cancel: true,
+    });
+
+    return fetchReservedSlotsByUserId(new Date(), userId);
 }
 
 /**

@@ -15,6 +15,7 @@ export const ROUTE_REGISTER = '/register';
 export const ROUTE_PARKING_AREAS = '/parking';
 export const ROUTE_PARKING_SLOTS = '/:parking_id/slots';
 export const ROUTE_FEEDBACK = '/feedback';
+export const ROUTE_RESERVATIONS = '/reservations';
 
 // Admin's protected routes
 export const ROUTE_ALL_RESERVATIONS = '/all-reservations';
@@ -26,6 +27,7 @@ export const PROTECTED_USER_ROUTES = [
     ROUTE_PARKING_AREAS,
     ROUTE_PARKING_SLOTS,
     ROUTE_FEEDBACK,
+    ROUTE_RESERVATIONS,
 ];
 
 export const PROTECTED_ADMIN_ROUTES = [

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {
     ROUTE_PARKING_AREAS,
     ROUTE_FEEDBACK,
+    ROUTE_RESERVATIONS,
     ACTIVE_CLASS_NAME,
     ROUTE_ALL_RESERVATIONS,
     ROUTE_ALL_CANCELLATIONS,
@@ -15,82 +16,101 @@ import { hasAdminRights } from '../auth/selectors.js';
 import { isUserLoggedIn } from '../auth/selectors';
 import { userLogoutRequested } from '../auth/actions';
 import { noop } from '../common/propTypes';
+import styles from './styles';
 
 export function AuthenicatedNavigation({ isUserLoggedIn, isAdmin, onLogout }) {
     return (
         <Fragment>
-            {isUserLoggedIn && !isAdmin && (
+            <nav>
                 <ul>
-                    <li>
-                        <NavLink
-                            activeClassName={ACTIVE_CLASS_NAME}
-                            to={ROUTE_PARKING_AREAS}
-                        >
-                            Parking Areas
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            activeClassName={ACTIVE_CLASS_NAME}
-                            to={ROUTE_FEEDBACK}
-                        >
-                            Feedback
-                        </NavLink>
-                    </li>
-                </ul>
-            )}
+                    {isUserLoggedIn && !isAdmin && (
+                        <Fragment>
+                            <li style={styles.list}>
+                                <NavLink
+                                    activeClassName={ACTIVE_CLASS_NAME}
+                                    to={ROUTE_PARKING_AREAS}
+                                    style={styles.anchor}
+                                >
+                                    Parking Areas
+                                </NavLink>
+                            </li>
+                            <li style={styles.list}>
+                                <NavLink
+                                    activeClassName={ACTIVE_CLASS_NAME}
+                                    to={ROUTE_FEEDBACK}
+                                    style={styles.anchor}
+                                >
+                                    Give Feedback
+                                </NavLink>
+                            </li>
+                            <li style={styles.list}>
+                                <NavLink
+                                    activeClassName={ACTIVE_CLASS_NAME}
+                                    to={ROUTE_RESERVATIONS}
+                                    style={styles.anchor}
+                                >
+                                    Reservations
+                                </NavLink>
+                            </li>
+                        </Fragment>
+                    )}
 
-            {isUserLoggedIn && isAdmin && (
-                <ul>
-                    <li>
-                        <NavLink
-                            activeClassName={ACTIVE_CLASS_NAME}
-                            to={ROUTE_ALL_RESERVATIONS}
-                        >
-                            Reservations
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            activeClassName={ACTIVE_CLASS_NAME}
-                            to={ROUTE_ALL_CANCELLATIONS}
-                        >
-                            Cancellations
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            activeClassName={ACTIVE_CLASS_NAME}
-                            to={ROUTE_ALL_USERS}
-                        >
-                            Users
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            activeClassName={ACTIVE_CLASS_NAME}
-                            to={ROUTE_ALL_FEEDBACKS}
-                        >
-                            Feedbacks
-                        </NavLink>
-                    </li>
-                </ul>
-            )}
+                    {isUserLoggedIn && isAdmin && (
+                        <Fragment>
+                            <li style={styles.list}>
+                                <NavLink
+                                    activeClassName={ACTIVE_CLASS_NAME}
+                                    to={ROUTE_ALL_RESERVATIONS}
+                                    style={styles.anchor}
+                                >
+                                    Reservations
+                                </NavLink>
+                            </li>
+                            <li style={styles.list}>
+                                <NavLink
+                                    activeClassName={ACTIVE_CLASS_NAME}
+                                    to={ROUTE_ALL_CANCELLATIONS}
+                                    style={styles.anchor}
+                                >
+                                    Cancellations
+                                </NavLink>
+                            </li>
+                            <li style={styles.list}>
+                                <NavLink
+                                    activeClassName={ACTIVE_CLASS_NAME}
+                                    to={ROUTE_ALL_USERS}
+                                    style={styles.anchor}
+                                >
+                                    Users
+                                </NavLink>
+                            </li>
+                            <li style={styles.list}>
+                                <NavLink
+                                    activeClassName={ACTIVE_CLASS_NAME}
+                                    to={ROUTE_ALL_FEEDBACKS}
+                                    style={styles.anchor}
+                                >
+                                    Feedbacks
+                                </NavLink>
+                            </li>
+                        </Fragment>
+                    )}
 
-            {isUserLoggedIn ? (
-                <ul>
-                    <li>
-                        <a
-                            onClick={(e) => {
-                                e.preventDefault();
-                                onLogout();
-                            }}
-                        >
-                            Logout
-                        </a>
-                    </li>
+                    {isUserLoggedIn ? (
+                        <li style={styles.list}>
+                            <a
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    onLogout();
+                                }}
+                                style={styles.anchor}
+                            >
+                                Logout
+                            </a>
+                        </li>
+                    ) : null}
                 </ul>
-            ) : null}
+            </nav>
         </Fragment>
     );
 }
