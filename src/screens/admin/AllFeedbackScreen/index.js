@@ -13,6 +13,7 @@ import { noop } from '../../../common/propTypes';
 import { connect } from 'react-redux';
 import { allFeedbackRequested, feedbackReplyRequested } from '../actions';
 import { getFeedbackData, getFeedbackInProgress } from '../selectors';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Alert from '@material-ui/lab/Alert';
 import styles from '../../FeedbackScreen/styles';
 
@@ -49,6 +50,7 @@ function AllFeedbackScreen({
                     {message}
                 </Alert>
             )}
+            {feedbackInProgess && <LinearProgress />}
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>

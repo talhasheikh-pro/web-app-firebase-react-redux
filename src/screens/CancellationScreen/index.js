@@ -8,10 +8,14 @@ import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { noop } from '../../common/propTypes';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { getActiveReservedSlots } from './selectors';
+import {
+    getActiveReservedSlots,
+    getActiveReservedSlotsInProgress,
+} from './selectors';
 import {
     cancelReservationRequested,
     activeReservationsRequested,
@@ -23,7 +27,12 @@ const useStyles = makeStyles({
     },
 });
 
-function CancellationScreen({ onLoad, activeSlots, onCancel }) {
+function CancellationScreen({
+    onLoad,
+    activeSlots,
+    onCancel,
+    activeReservedSlotsFetchInProgress,
+}) {
     const classes = useStyles();
 
     useEffect(() => {
@@ -32,6 +41,7 @@ function CancellationScreen({ onLoad, activeSlots, onCancel }) {
 
     return (
         <TableContainer component={Paper}>
+            {activeReservedSlotsFetchInProgress && <LinearProgress />}
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
@@ -68,6 +78,10 @@ function CancellationScreen({ onLoad, activeSlots, onCancel }) {
                                 </TableRow>
                             ),
                         )}
+                    {!activeReservedSlotsFetchInProgress &&
+                    !activeSlots.length ? (
+                        <TableCell>No Data Found</TableCell>
+                    ) : null}
                 </TableBody>
             </Table>
         </TableContainer>
@@ -78,17 +92,22 @@ CancellationScreen.propTypes = {
     onLoad: PropTypes.func,
     onCancel: PropTypes.func,
     activeSlots: PropTypes.array,
+    activeReservedSlotsFetchInProgress: PropTypes.bool,
 };
 
 CancellationScreen.defaultProps = {
     onLoad: noop,
     onCancel: noop,
     activeSlots: [],
+    activeReservedSlotsFetchInProgress: false,
 };
 
 const mapStateToProps = (state) => {
     return {
         activeSlots: getActiveReservedSlots(state),
+        activeReservedSlotsFetchInProgress: getActiveReservedSlotsInProgress(
+            state,
+        ),
     };
 };
 

@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { noop } from '../../../common/propTypes';
 import { connect } from 'react-redux';
 import { allCancellationsRequested } from '../actions';
@@ -28,6 +29,7 @@ function AllCancellationsScreen({ cancelledReservationsData, onLoad }) {
 
     return (
         <TableContainer component={Paper}>
+            {!cancelledReservationsData.length && <LinearProgress />}
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>

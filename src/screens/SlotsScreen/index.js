@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { useLocation } from 'react-router-dom';
 import { noop } from '../../common/propTypes';
 import Alert from '@material-ui/lab/Alert';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import styles from './styles';
 import {
     parkingSlotsRequested,
@@ -108,6 +109,9 @@ function SlotsScreen({
             {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
             {message && <Alert severity="info">{message}</Alert>}
+
+            {slotRevervationInProgress ||
+                (slots && !slots.length && <LinearProgress />)}
 
             {slots &&
                 slots.map((single) => {

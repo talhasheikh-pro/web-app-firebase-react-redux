@@ -6,6 +6,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import { noop } from '../../common/propTypes';
 import Alert from '@material-ui/lab/Alert';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { withRouter } from 'react-router-dom';
 import { parkingAreasRequested } from './actions';
 import { getParkingAreas, getParkingAreasError } from './selectors';
@@ -20,6 +21,7 @@ function ParkingAreasScreen({ history, onLoad, parkings, errorMessage }) {
     return (
         <Fragment>
             <Typography>Select Parking</Typography>
+            {!parkings.length && <LinearProgress />}
             {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
             {parkings.map((single) => {
                 const { id, location } = single;

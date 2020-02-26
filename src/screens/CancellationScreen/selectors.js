@@ -16,3 +16,8 @@ export const getCancellationDetails = createSelector(
     cancellationScreenState,
     (state) => state.cancellationDetails,
 );
+
+export const getActiveReservedSlotsInProgress = createSelector(
+    cancellationScreenState,
+    (state) => state.activeReservedSlotsFetchInProgress,
+);
